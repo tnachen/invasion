@@ -19,8 +19,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/jackzampolin/invasion/invasion"
 	"github.com/spf13/cobra"
+	"github.com/tnachen/invasion/invasion"
 )
 
 var numCities int

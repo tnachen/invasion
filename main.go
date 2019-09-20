@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/jackzampolin/invasion/cmd"
+import "github.com/tnachen/invasion/cmd"
 
 func main() {
 	cmd.Execute()

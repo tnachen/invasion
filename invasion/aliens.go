@@ -11,16 +11,6 @@ type Alien struct {
 	Turns int
 }
 
-// NewAliens creates n new Alien objects with random names
-func (m *Map) newAliens(n int) []*Alien {
-	out := make([]*Alien, 0)
-	names := m.randStrings(n, alienNameLength)
-	for _, name := range names {
-		out = append(out, &Alien{Name: name, Turns: 0})
-	}
-	return out
-}
-
 func (a Alien) String() string {
 	return fmt.Sprintf("%s city=%s turns=%d", a.Name, a.City, a.Turns)
 }
