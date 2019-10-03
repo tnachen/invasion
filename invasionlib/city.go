@@ -6,52 +6,18 @@ import (
 	"time"
 )
 
-func removeFromSlice(value string, values []string) []string {
-	found := -1
-	for i, v := range values {
-		if v == value {
-			found = i
-		}
-	}
-
-	if found != -1 {
-		values[found] = values[len(values)-1]
-		return values[:len(values)-1]
-	}
-
-	return values
-}
-
-func removeFromSliceBytes(value string, values [][]byte) [][]byte {
-	found := -1
-	for i, v := range values {
-		if string(v) == value {
-			found = i
-		}
-	}
-
-	if found != -1 {
-		values[found] = values[len(values)-1]
-		return values[:len(values)-1]
-	}
-
-	return values
-}
-
 // NewCity creates a new city with roads to other cities in the map
 func (m *Map) NewCity(name string, cities []string) *City {
-	cities = removeFromSlice(name, cities)
 	return &City{
 		Name:  name,
-		Roads: m.NewRoads(cities),
+		Roads: m.NewRoads(name, cities),
 	}
 }
 
 func (m *Map) NewCityBytes(name string, cities [][]byte) *City {
-	cities = removeFromSliceBytes(name, cities)
 	return &City{
 		Name:  name,
-		Roads: m.NewRoadsBytes(cities),
+		Roads: m.NewRoadsBytes(name, cities),
 	}
 }
 

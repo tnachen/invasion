@@ -7,7 +7,7 @@ import (
 var directions = []string{"north", "east", "south", "west"}
 
 // NewRoads returns 1-4 roads that connect to other cities in the cities array
-func (m *Map) NewRoads(cities []string) []*Road {
+func (m *Map) NewRoads(currentCity string, cities []string) []*Road {
 	roads := make([]*Road, 0)
 
 	// copy directions slice
@@ -24,14 +24,18 @@ func (m *Map) NewRoads(cities []string) []*Road {
 
 	// Pull off the first numRoads roads
 	for _, d := range directions[:numRoads] {
-		roads = append(roads, &Road{Direction: d, City: cities[m.rand.Intn(len(cities))]})
+		nextCity := cities[m.rand.Intn(len(cities))]
+		for nextCity != currentCity {
+			nextCity = cities[m.rand.Intn(len(cities))]
+		}
+		roads = append(roads, &Road{Direction: d, City: nextCity})
 	}
 
 	return roads
 }
 
 // NewRoads returns 1-4 roads that connect to other cities in the cities array
-func (m *Map) NewRoadsBytes(cities [][]byte) []*Road {
+func (m *Map) NewRoadsBytes(currentCity string, cities [][]byte) []*Road {
 	roads := make([]*Road, 0)
 
 	// copy directions slice
@@ -48,7 +52,12 @@ func (m *Map) NewRoadsBytes(cities [][]byte) []*Road {
 
 	// Pull off the first numRoads roads
 	for _, d := range directions[:numRoads] {
-		roads = append(roads, &Road{Direction: d, City: string(cities[m.rand.Intn(len(cities))])})
+		nextCity := string(cities[m.rand.Intn(len(cities))])
+		for nextCity != currentCity {
+			nextCity = string(cities[m.rand.Intn(len(cities))])
+		}
+
+		roads = append(roads, &Road{Direction: d, City: nextCity})
 	}
 
 	return roads
