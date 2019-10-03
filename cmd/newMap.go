@@ -20,7 +20,7 @@ import (
 	"strconv"
 
 	"github.com/spf13/cobra"
-	"github.com/tnachen/invasion/invasion"
+	"github.com/tnachen/invasion/invasionlib"
 )
 
 var numCities int
