@@ -23,12 +23,17 @@ func (m *Map) NewRoads(currentCity string, cities []string) []*Road {
 	numRoads := m.rand.Intn(4) + 1
 
 	// Pull off the first numRoads roads
+	existing := map[string]bool{}
+	existing[currentCity] = true
 	for _, d := range directions[:numRoads] {
 		nextCity := cities[m.rand.Intn(len(cities))]
-		for nextCity != currentCity {
+		_, ok := existing[nextCity]
+		for ok {
 			nextCity = cities[m.rand.Intn(len(cities))]
+			_, ok = existing[nextCity]
 		}
 		roads = append(roads, &Road{Direction: d, City: nextCity})
+		existing[nextCity] = true
 	}
 
 	return roads
@@ -49,15 +54,19 @@ func (m *Map) NewRoadsBytes(currentCity string, cities [][]byte) []*Road {
 
 	// Random number of roads
 	numRoads := m.rand.Intn(4) + 1
-
+	existing := map[string]bool{}
+	existing[currentCity] = true
 	// Pull off the first numRoads roads
 	for _, d := range directions[:numRoads] {
 		nextCity := string(cities[m.rand.Intn(len(cities))])
-		for nextCity != currentCity {
+		_, ok := existing[nextCity]
+		for ok {
 			nextCity = string(cities[m.rand.Intn(len(cities))])
+			_, ok = existing[nextCity]
 		}
 
 		roads = append(roads, &Road{Direction: d, City: nextCity})
+		existing[nextCity] = true
 	}
 
 	return roads
